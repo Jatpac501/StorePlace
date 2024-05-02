@@ -1,0 +1,84 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API документация",
+        "description": "Описание",
+        "contact": {
+            "email": "support@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/dashboard": {
+            "get": {
+                "summary": "Получить список продуктов",
+                "operationId": "8ac4e2120740a8dc33760b2b9777cf5c",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "Уникальный идентификатор",
+                                                "type": "integer"
+                                            },
+                                            "saler": {
+                                                "description": "Идентификатор продавца",
+                                                "type": "integer"
+                                            },
+                                            "imagesId": {
+                                                "description": "Идентификатор изображения",
+                                                "type": "integer",
+                                                "nullable": true
+                                            },
+                                            "name": {
+                                                "description": "Название товара",
+                                                "type": "string"
+                                            },
+                                            "price": {
+                                                "description": "Цена товара",
+                                                "type": "integer"
+                                            },
+                                            "priceOld": {
+                                                "description": "Старая цена товара",
+                                                "type": "integer"
+                                            },
+                                            "description": {
+                                                "description": "Описание товара",
+                                                "type": "text"
+                                            },
+                                            "certificate_path": {
+                                                "description": "Путь к файлу сертификата",
+                                                "type": "string",
+                                                "maxLength": 4096,
+                                                "nullable": true
+                                            },
+                                            "created_at": {
+                                                "description": "Время создания записи",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "description": "Время последнего обновления записи",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректный запрос"
+                    }
+                }
+            }
+        }
+    }
+}
