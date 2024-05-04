@@ -23,4 +23,9 @@ Route::middleware([
     Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
     Route::resource('product', ProductController::class);
     Route::resource('cart', CartController::class);
+
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::post('/cart/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 });

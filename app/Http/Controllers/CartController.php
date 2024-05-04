@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -12,54 +15,60 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $userId = Auth::id();
+        $carts = Cart::where('userId', $userId)->get();
+
+        $items = $carts->map(function ($cart) {
+            $product = Product::find($cart->productId);
+            if ($product) {
+                $product->count = $cart->count;
+                return $product;
+            }
+        })->filter();
+
+        return Inertia::render('Cart/ShowCart', [
+            'cart' => $carts,
+            'items' => $items
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function remove(Request $request)
     {
-        //
+        $userId = Auth::id();
+        Cart::where('userId', $userId)->where('productId', $request->productId)->delete();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function increment(Request $request)
     {
-        //
+        $userId = Auth::id();
+        $cartItem = Cart::where('userId', $userId)->where('productId', $request->productId)->first();
+        if ($cartItem) {
+            $cartItem->increment('count');
+        }
+
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cart $cart)
+    public function decrement(Request $request)
     {
-        //
+        $userId = Auth::id();
+        $cartItem = Cart::where('userId', $userId)->where('productId', $request->productId)->first();
+        if ($cartItem && $cartItem->count > 1) {
+            $cartItem->decrement('count');
+        }
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cart $cart)
+    public function add(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart)
-    {
-        //
+        $userId = Auth::id();
+        $cartItem = Cart::firstOrNew([
+            'userId' => $userId,
+            'productId' => $request->input('productId')
+        ]);
+        $cartItem->count = ($cartItem->count ?? 0) + $request->input('count');
+        $cartItem->save();
+        return redirect('/cart');
     }
 }

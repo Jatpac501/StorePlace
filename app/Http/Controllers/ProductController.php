@@ -9,7 +9,6 @@ use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Laravel\Jetstream\Role;
 
 class ProductController extends Controller
 {

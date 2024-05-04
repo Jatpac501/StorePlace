@@ -19,4 +19,9 @@ class Product extends Model
                             'description',
                             'certificateId'
                         ];
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'carts')->withPivot('count');
+    }
 }

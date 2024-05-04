@@ -1,13 +1,18 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {Link} from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     product: Object,
     cerfPath: String
 });
-
-console.log(props.cerfPath);
+const addToCart = () => {
+    const item = {
+        productId: props.product.id,
+        count: 1
+    };
+    router.post('/cart/add', item);
+};
 </script>
 
 <template>
@@ -31,7 +36,10 @@ console.log(props.cerfPath);
                             </div>
                             <div class="mt-4">
                                 <div class="text-lg font-semibold text-gray-800 dark:text-white">{{ product.price }} ₽</div>
-                                <button class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">Добавить в корзину</button>
+                                <button
+                                    @click="addToCart" class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+                                    Добавить в корзину
+                                </button>
                             </div>
                         </div>
                     </div>
