@@ -1,11 +1,13 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import {Link} from '@inertiajs/vue3';
 
 const props = defineProps({
     product: Object,
+    cerfPath: String
 });
 
-
+console.log(props.cerfPath);
 </script>
 
 <template>
@@ -25,6 +27,7 @@ const props = defineProps({
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800 dark:text-white">{{ product.name }}</h3>
                                 <p class="text-gray-600 dark:text-gray-200 mt-2">{{ product.description }}</p>
+                                <Link :href="cerfPath" class="text-blue-500 dark:text-gray-200 mt-2">Сертификат</Link>
                             </div>
                             <div class="mt-4">
                                 <div class="text-lg font-semibold text-gray-800 dark:text-white">{{ product.price }} ₽</div>

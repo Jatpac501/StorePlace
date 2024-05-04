@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -20,6 +21,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
-
     Route::resource('product', ProductController::class);
+    Route::resource('cart', CartController::class);
 });

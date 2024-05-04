@@ -39,7 +39,7 @@ class ProductController extends Controller
         $filePath = $request->file('file')->store('certificate', 'public');
 
         $certificate = Certificate::create([
-            'filePath' => $filePath,
+            'filePath' => '/storage/' . $filePath,
         ]);
         Product::create([
             'name' => $request->name,
@@ -56,8 +56,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return Inertia::render('Product/ShowProduct',[
+        $certificate = Certificate::find($product->certificateId);
+        $cerfPath = $certificate ? $certificate->filePath : null;
+
+        return Inertia::render('Product/ShowProduct', [
             'product' => $product,
+            'cerfPath' => $cerfPath,
         ]);
     }
 
