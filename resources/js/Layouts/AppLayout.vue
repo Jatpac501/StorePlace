@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
@@ -7,6 +7,25 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+
+// const cartCount = ref(0);
+
+// const fetchCartCount = async () => {
+//     try {
+//         const response = await fetch('/cart/count');
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         const data = await response.json();
+//         cartCount.value = data.count;
+//     } catch (e) {
+//         console.error("There was a problem fetching cart count:", e);
+//     }
+// };
+
+// onMounted(() => {
+//   fetchCartCount();
+// });
 
 defineProps({
     title: String,

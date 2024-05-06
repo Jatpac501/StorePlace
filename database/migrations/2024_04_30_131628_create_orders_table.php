@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('orderCode');
+            $table->string('name');
+            $table->integer('phone');
+            $table->string('address');
             $table->string('status');
+            $table->integer('userId');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,4 +29,8 @@ Route::middleware([
     Route::post('/cart/increment', [CartController::class, 'increment'])->name('cart.increment');
     Route::post('/cart/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
+
+    Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
 });

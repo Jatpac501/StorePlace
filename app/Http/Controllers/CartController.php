@@ -10,9 +10,6 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $userId = Auth::id();
@@ -70,5 +67,11 @@ class CartController extends Controller
         $cartItem->count = ($cartItem->count ?? 0) + $request->input('count');
         $cartItem->save();
         return redirect('/cart');
+    }
+
+    public function count() {
+        $userId = Auth::id();
+        $count = 1;
+        return response()->json(['count' => $count]);
     }
 }

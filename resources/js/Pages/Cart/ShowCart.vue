@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+
 const props = defineProps({
     cart: Object,
     items: Array
@@ -12,11 +12,11 @@ const calculateTotal = () => {
 };
 
 const removeItem = (item) => {
-    router.post('/cart/remove', { productId: item.id });
+    if (confirm('Удалить товар из корзины?')) router.post('/cart/remove', { productId: item.id });
 };
 
 const increment = (item) => {
-    router.post('/cart/increment', { productId: item.id });
+    if (item.count < 100) router.post('/cart/increment', { productId: item.id });
 };
 const decrement = (item) => {
     if (item.count > 1) {
@@ -82,9 +82,9 @@ const decrement = (item) => {
             </div>
           </div>
           <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700 text-right">
-            <button class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md opacity-90 hover:opacity-100">
+            <Link :href="route('order.checkout')" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md opacity-90 hover:opacity-100">
               Оформить заказ
-            </button>
+            </Link>
           </div>
         </div>
       </div>
